@@ -7,6 +7,16 @@
   height: 20vmin;
 }
 
+.logos {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+}
+
+.logo {
+  height: 20vmin;
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 10vh;

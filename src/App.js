@@ -12,7 +12,11 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
+          <div className="logos">
+            <img className="logo" alt="git" src="https://firebasestorage.googleapis.com/v0/b/reactivate-kt.appspot.com/o/img%2FGitLogo.png?alt=media&token=f2492d5e-cc1f-4715-8524-6ca66e9da6cf" />
+            <img src={logo} className="App-logo" alt="logo" />
+            <img className="logo" src="https://firebasestorage.googleapis.com/v0/b/reactivate-kt.appspot.com/o/img%2FFirebaseLogo.png?alt=media&token=969c17eb-aabb-4857-95b7-7f75d906fbb3" alt="firebase"/>
+          </div>
           <p>
             <code>git react me</code>. Time to learn React.
           </p>
