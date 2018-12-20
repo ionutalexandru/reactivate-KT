@@ -5,25 +5,19 @@ import {ToDoForm, ToDoList} from './components';
 import {dbActions} from '../actions';
 
 class ToDo extends Component {
-    state = {
-        currentToDo: ToDo.defaultProps.currentToDo,
-        isCompleted: ToDo.defaultProps.isCompleted,
-        todos: ToDo.defaultProps.todos,
-    };
+    state = ToDo.defaultProps;
 
     handleInputChange = (e) => this.setState({currentToDo: e.target.value});
 
     handleSubmit = (e) => {
-        e.preventDefault();
-        const callback = () => {
+        e.preventDefault();            
+        const {currentToDo, isCompleted} = this.state;
+        if(currentToDo.trim()!== 0){
+            dbActions.addTodo({todo: currentToDo.trim(), isCompleted});
             this.setState({
                 currentToDo: ToDo.defaultProps.currentToDo,
                 isCompleted: ToDo.defaultProps.isCompleted,
             }, this.updateTodoList);
-        };
-        const {currentToDo, isCompleted} = this.state;
-        if(this.state.currentToDo !== ToDo.defaultProps.currentToDo){
-            dbActions.addTodo({todo: currentToDo.trim(), isCompleted}, callback);
         };
     };
      
@@ -63,11 +57,10 @@ class ToDo extends Component {
 
     render(){
         const todos = this.getTodosFiltered();
-        const {currentToDo} = this.state;
         return (
             <Fragment>
                 <ToDoForm 
-                    currentToDo = {currentToDo}
+                    currentToDo = {this.state.currentToDo}
                     handleInputChange = {this.handleInputChange}
                     handleSubmit = {this.handleSubmit}
                 />

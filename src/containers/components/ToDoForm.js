@@ -7,6 +7,7 @@ export const ToDoForm = (props) => {
         handleSubmit,
         handleInputChange
     } = props;
+
     return(
         <form onSubmit={handleSubmit}>
             <input
@@ -17,7 +18,7 @@ export const ToDoForm = (props) => {
             <button 
                 onClick={handleSubmit} 
                 className="button"
-                disabled = {!currentToDo || /\s+$/.test(currentToDo)}
+                disabled = {!currentToDo || currentToDo.trim().length===0}
             >Add task</button>
         </form>
     )

@@ -15,12 +15,10 @@ const getDoc = (id) => {
 };
 
 // Add Todo in DB
-const addTodo = (todo, callback) => {
+const addTodo = (todo) => {
     db.collection(collection).add(todo)
-    .then((docRef) => {
-        callback()
-        console.log(`%c Document with ID ${docRef.id} added`, 'color: green;')
-    }).catch(err => console.error(`Error adding Todo: ${err}`));
+    .then((docRef) => console.log(`%c Document with ID ${docRef.id} added`, 'color: green;'))
+    .catch(err => console.error(`Error adding Todo: ${err}`));
 };
 
 // Get all todos
