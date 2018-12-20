@@ -17,7 +17,7 @@ export const ToDoForm = (props) => {
             <button 
                 onClick={handleSubmit} 
                 className="button"
-                disabled = {!currentToDo}
+                disabled = {!currentToDo || /\s+$/.test(currentToDo)}
             >Add task</button>
         </form>
     )

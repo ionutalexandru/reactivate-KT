@@ -93,7 +93,8 @@ i {
 .ToDo-List {
   display: flex;
   flex-direction: column;
-  align-content: center;
+  /* align-content: center; */
+  justify-content: center;
 }
 
 .ToDo-Item {
@@ -135,6 +136,7 @@ input {
   border: none;
   cursor: pointer;
   padding: 0px 20px;
+  border-radius: 5px;
 }
 
 .button:disabled {

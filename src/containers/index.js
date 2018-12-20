@@ -23,7 +23,7 @@ class ToDo extends Component {
         };
         const {currentToDo, isCompleted} = this.state;
         if(this.state.currentToDo !== ToDo.defaultProps.currentToDo){
-            dbActions.addTodo({todo: currentToDo, isCompleted}, callback);
+            dbActions.addTodo({todo: currentToDo.trim(), isCompleted}, callback);
         };
     };
      
@@ -56,6 +56,11 @@ class ToDo extends Component {
         }
     };
 
+    handleRemoveAll = (e) => {
+        e.preventDefault();
+        dbActions.deleteAll(this.state.todos);
+    };
+
     render(){
         const todos = this.getTodosFiltered();
         const {currentToDo} = this.state;
@@ -70,6 +75,7 @@ class ToDo extends Component {
                     todos={todos}
                     handleToggle = {this.handleToggle}
                     handleRemove = {this.handleRemove}
+                    handleRemoveAll = {this.handleRemoveAll}
                 />
             </Fragment>
         );

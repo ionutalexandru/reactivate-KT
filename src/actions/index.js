@@ -1,21 +1,7 @@
 import {db} from '../config';
-import {getRandomNumber} from '../utils';
 
 // Name of the collection
 const collection = 'todos';
-
-// We define the id 
-const createId = (value, callback) => {
-    let id = `todo-${value.split(" ").join('-').toLowerCase()}`;
-    // Check if there's a doc with this id; if so, add an ordinal number
-    db.collection(collection).doc(id).get()
-        .then(doc => {
-            if(doc.exists){
-                id = `${id}-${getRandomNumber()}`;
-            };
-            callback(id);
-        });
-};
 
 // Get Todo Doc Data
 const getDoc = (id) => {
@@ -29,25 +15,18 @@ const getDoc = (id) => {
 };
 
 // Add Todo in DB
-const addTodo = ({todo, isCompleted}, callback) => {
-    let addCallback = (id) => {
-        db.collection(collection).doc(id).set({
-            id,
-            todo,
-            isCompleted,
-        })
-        .then(() => {
-            callback()
-            console.log(`%c Document with ID ${id} added`, 'color: green;')
-        }).catch(err => console.error(`Error adding Todo: ${err}`));
-    };
-    createId(todo, addCallback);
+const addTodo = (todo, callback) => {
+    db.collection(collection).add(todo)
+    .then((docRef) => {
+        callback()
+        console.log(`%c Document with ID ${docRef.id} added`, 'color: green;')
+    }).catch(err => console.error(`Error adding Todo: ${err}`));
 };
 
 // Get all todos
 const getAll = async () => {
     let snapshot = await db.collection(collection).get()
-    return snapshot.docs.map(doc => doc.data())
+    return snapshot.docs.map(doc => ({id: doc.id, ...doc.data()}))
 };
 
 // Edit todo
@@ -90,6 +69,11 @@ const listenDB = (callback) => {
     })
 };
 
+//Delete all collection
+const deleteAll = (todos) => {
+    todos.map(todo => db.collection(collection).doc(todo.id).delete());
+};
+
 export const dbActions = {
     getDoc,
     addTodo,
@@ -98,4 +82,5 @@ export const dbActions = {
     getAll,
     stopListeningDB,
     listenDB,
+    deleteAll,
 };
