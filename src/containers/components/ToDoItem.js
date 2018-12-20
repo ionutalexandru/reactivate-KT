@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {Box} from '../../components';
 
 export const ToDoItem = (props) => {
     const {
@@ -9,12 +10,16 @@ export const ToDoItem = (props) => {
     } = props;
 
     return (
-        <li>
-            <span className="delete-item">
-                <p onClick={() => handleRemove(todo)}>X</p>
+        <Box className="ToDo-Item">
+            <span className="circle" onClick={() => handleToggle(todo)}>
+                {!todo.isCompleted
+                    ? <i className="far fa-circle"></i>
+                    : <i className="fas fa-check-circle"></i>
+                }
             </span>
-            <input type="checkbox" onChange={() => handleToggle(todo)} defaultChecked={todo.isCompleted} />{todo.todo}
-        </li>
+            <span className="todo-name">{todo.todo}</span>
+            <span className="delete-item" onClick={() => handleRemove(todo)}><i className="fas fa-eraser"></i></span>
+        </Box>
     );
 };
 

@@ -11,7 +11,7 @@ class ToDo extends Component {
         todos: ToDo.defaultProps.todos,
     };
 
-    handleInputChange = (currentToDo) => this.setState({currentToDo});
+    handleInputChange = (e) => this.setState({currentToDo: e.target.value});
 
     handleSubmit = (e) => {
         e.preventDefault();
@@ -55,13 +55,14 @@ class ToDo extends Component {
                 return todos;
         }
     };
-    
+
     render(){
         const todos = this.getTodosFiltered();
+        const {currentToDo} = this.state;
         return (
             <Fragment>
                 <ToDoForm 
-                    currentToDo = {this.state.currentToDo}
+                    currentToDo = {currentToDo}
                     handleInputChange = {this.handleInputChange}
                     handleSubmit = {this.handleSubmit}
                 />
